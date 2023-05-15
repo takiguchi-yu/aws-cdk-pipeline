@@ -1,14 +1,28 @@
-# Welcome to your CDK TypeScript project
+# CDK パイプラインを使用した継続的インテグレーションと継続的デリバリー (CI/CD)
 
-This is a blank project for CDK development with TypeScript.
+下記サイトを参考に CDK Pipeline を構築する。
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+https://docs.aws.amazon.com/cdk/v2/guide/cdk_pipeline.html
 
-## Useful commands
+## AWS 環境をブートストラップする
 
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `cdk deploy`      deploy this stack to your default AWS account/region
-* `cdk diff`        compare deployed stack with current state
-* `cdk synth`       emits the synthesized CloudFormation template
+`--cloudformation-execution-policies` は、将来の CDK Pipelines デプロイメントが実行されるポリシーの ARN を指定します。デフォルトの AdministratorAccessポリシーにより、パイプラインがあらゆる種類の AWS リソースをデプロイできるようになります。
+
+```bash
+npx cdk bootstrap aws://ACCOUNT-NUMBER/REGION --profile ADMIN-PROFILE \
+    --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
+```
+
+## プロジェクトの初期化
+
+```bash
+git clone GITHUB-CLONE-URL my-pipeline
+cd my-pipeline
+cdk init app --language typescript
+```
+
+## パイプラインを定義する
+
+```bash
+
+```
