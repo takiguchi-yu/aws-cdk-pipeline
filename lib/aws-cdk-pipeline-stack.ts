@@ -20,9 +20,5 @@ export class AwsCdkPipelineStack extends cdk.Stack {
 				commands: ["npm ci", "npm run build", "npx cdk synth"]
 			})
 		});
-
-    // Deploy ステージをパイプラインに追加
-    const deploy = new BlogPipelineStage(this, "Deploy")
-    pipeline.addStage(deploy)
   }
 }
