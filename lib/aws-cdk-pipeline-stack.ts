@@ -24,7 +24,7 @@ export class AwsCdkPipelineStack extends cdk.Stack {
 		});
 
     // ステージを追加
-    const testingStage = pipeline.addStage(new MyPipelineAppStage(this, "test", {}))
-    testingStage.addPost(new ManualApprovalStep('approval'))
+    const testingStage = pipeline.addStage(new MyPipelineAppStage(this, "Deploy", {}))
+    // testingStage.addPost(new ManualApprovalStep('approval'))
   }
 }
