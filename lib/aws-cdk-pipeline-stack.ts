@@ -51,7 +51,10 @@ export class AwsCdkPipelineStack extends cdk.Stack {
 			output: sourceOutput,
 			connectionArn: 'arn:aws:codestar-connections:ap-northeast-1:887277492962:connection/a6c5beb2-34a4-4224-99a9-0332ee4a054c',
 		});
-		pipeline.addStage({ stageName: 'Source', });
+    pipeline.addStage({
+      stageName: 'Source',
+      actions: [sourceAction],
+    });
 
 		// const pipeline = new CodePipeline(this, "APIDocumentPipeline", {
 		// 	pipelineName: "APIDocumentPipeline",
