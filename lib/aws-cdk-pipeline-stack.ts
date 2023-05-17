@@ -5,7 +5,8 @@ import { MyPipelineAppStage } from './aws-cdk-pipeline-lambda-stage';
 import { BlockPublicAccess, Bucket } from 'aws-cdk-lib/aws-s3';
 import { AllowedMethods, Distribution, OriginAccessIdentity, PriceClass, SecurityPolicyProtocol, ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { S3Origin } from 'aws-cdk-lib/aws-cloudfront-origins';
-import { CfnOutput } from 'aws-cdk-lib';
+import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment';
+import { CfnOutput, RemovalPolicy } from 'aws-cdk-lib';
 
 export class AwsCdkPipelineStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -15,7 +16,9 @@ export class AwsCdkPipelineStack extends cdk.Stack {
 		const apiDocumentBucket = new Bucket(this, 'ApiDocumentBucket', {
 			bucketName: 'takiguchi-no-api-document-bucket',
 			publicReadAccess: false,
-			blockPublicAccess: BlockPublicAccess.BLOCK_ALL
+			blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
+			removalPolicy: RemovalPolicy.DESTROY,
+			autoDeleteObjects: true
 		})
 
 		// S3を参照するためのCloudfrontを作成
@@ -48,8 +51,16 @@ export class AwsCdkPipelineStack extends cdk.Stack {
 				commands: ["npm ci", "npm run build", "npx cdk synth"],
 			})
 		});
+    // ステージを追加
+    // const deployStage = pipeline.addStage(new MyPipelineAppStage(this, "Deploy", {}))
 
-    // // ステージを追加
-    // const testingStage = pipeline.addStage(new MyPipelineAppStage(this, "Deploy", {}))
+
+		// Deploy site contents to S3 bucket
+		new s3deploy.BucketDeployment(this, 'DeployWithInvalidation', {
+			sources: [s3deploy.Source.asset('./app/src')],
+			destinationBucket: apiDocumentBucket,
+			distribution,
+			distributionPaths: ['/*'],
+		});
   }
 }

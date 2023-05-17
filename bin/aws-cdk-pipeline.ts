@@ -12,4 +12,6 @@ const app = new cdk.App();
 // TODO: Lambdaにアプリケーションをビルド&デプロイ
 new AwsCdkPipelineStack(app, 'AwsCdkPipelineStack', {
   env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
+  description: "OpenAPIドキュメントをデプロイする",
+  tags: { Name: 'takiguchi-yu' },
 });
