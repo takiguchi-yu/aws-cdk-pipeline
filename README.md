@@ -53,3 +53,12 @@ export class AwsCdkPipelineStack extends cdk.Stack {
 }
 ```
 
+## ドキュメント生成
+
+[widdershins](https://github.com/Mermade/widdershins)
+
+```bash
+widdershins --search false --language_tabs 'javascript:JavaScript' 'python:Python' 'java:Java' --summary ./api/openapi.yaml -o ./slate/source/index.html.md
+```
+
+
