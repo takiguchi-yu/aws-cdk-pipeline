@@ -37,11 +37,11 @@ export class CloudFrontS3Stack extends cdk.Stack {
 		new CfnOutput(this, 'DistributionId', { value: distribution.distributionId });
 
 		// S3にデプロイ
-		new s3deploy.BucketDeployment(this, 'DeployWithInvalidation', {
-			sources: [s3deploy.Source.asset('../api/spec/build/')],
-			destinationBucket: apiDocumentBucket,
-			distribution,
-			distributionPaths: ['/*'],
-		});
+		// new s3deploy.BucketDeployment(this, 'DeployWithInvalidation', {
+		// 	sources: [s3deploy.Source.asset('../api/spec/build/')],
+		// 	destinationBucket: apiDocumentBucket,
+		// 	distribution,
+		// 	distributionPaths: ['/*'],
+		// });
   }
 }

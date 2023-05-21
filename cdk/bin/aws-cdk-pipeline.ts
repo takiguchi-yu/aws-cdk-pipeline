@@ -20,3 +20,5 @@ new CloudFrontS3Stack(app, 'CloudFrontS3Stack', stackProps)
 // TODO: APIGatewayにOpenAPI定義をインポート
 // TODO: Lambdaにアプリケーションをビルド&デプロイ
 new AwsCdkPipelineStack(app, 'AwsCdkPipelineStack', stackProps);
+
+app.synth();
