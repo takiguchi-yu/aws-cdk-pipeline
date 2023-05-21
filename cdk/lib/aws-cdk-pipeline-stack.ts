@@ -16,7 +16,7 @@ export class AwsCdkPipelineStack extends cdk.Stack {
 						connectionArn: "arn:aws:codestar-connections:ap-northeast-1:887277492962:connection/a6c5beb2-34a4-4224-99a9-0332ee4a054c"
 					}),
 				installCommands: ["npm install -g aws-cdk"],
-				commands: ["npm ci", "npm run build", "npx cdk synth"],
+				commands: ["cd cdk", "npm ci", "npm run build", "npx cdk synth"],
 			})
 		});
     // ステージを追加
