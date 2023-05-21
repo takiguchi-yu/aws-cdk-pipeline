@@ -61,4 +61,10 @@ export class AwsCdkPipelineStack extends cdk.Stack {
 widdershins --search false --language_tabs 'javascript:JavaScript' 'python:Python' 'java:Java' --summary ./api/openapi.yaml -o ./slate/source/index.html.md
 ```
 
+### redoc 
+
+```bash
+npm install -g @redocly/cli
+redocly build-docs api/spec/openapi.yaml --output api/spec/build/index.html --title "Page Title"
+```
 
