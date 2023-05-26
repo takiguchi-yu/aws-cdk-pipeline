@@ -1,6 +1,6 @@
 import { Stack, StackProps, Stage } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { Iam } from '../construct/iam';
+import { Documentation } from '../construct/documentation';
 
 export interface AwsCdkPipelineStageProps extends StackProps {
   securityNotifyEmail: string;
@@ -19,7 +19,7 @@ export class AwsCdkPipelineStage extends Stage {
       },
     });
 
-    new Iam(stack, 'Iam');
+    // new Iam(stack, 'Iam');
 
     // AWS CloudTrail configuration in Control Tower Landing Zone v3.0 will not create CloudWatch Logs LogGroup in each Guest Accounts.
     // And it will delete these LogGroups when AWS CloudTrial Configuration is disabled in case of updating Landing Zone version from older one.
@@ -33,5 +33,8 @@ export class AwsCdkPipelineStage extends Stage {
     //   notifyEmail: props.securityNotifyEmail,
     //   cloudTrailLogGroupName: logging.trailLogGroup.logGroupName,
     // });
+
+    // OpenAPI Documentation
+    new Documentation(stack, 'Documentation');
   }
 }
