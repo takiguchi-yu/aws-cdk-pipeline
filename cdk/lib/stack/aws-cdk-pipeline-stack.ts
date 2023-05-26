@@ -28,6 +28,8 @@ export class AwsCdkPipelineStack extends cdk.Stack {
         ],
         primaryOutputDirectory: './cdk/cdk.out',
       }),
+      dockerEnabledForSelfMutation: true,
+      dockerEnabledForSynth: true,
     });
 
     props.targetParameters.forEach((params) => {
