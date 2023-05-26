@@ -1,8 +1,6 @@
 import { Stack, StackProps, Stage } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { Detection } from '../construct/detection';
 import { Iam } from '../construct/iam';
-import { Logging } from '../construct/logging';
 
 export interface AwsCdkPipelineStageProps extends StackProps {
   securityNotifyEmail: string;
@@ -17,7 +15,7 @@ export class AwsCdkPipelineStage extends Stage {
     // Define a stack and associate same constructs as normal to this.
     const stack = new Stack(this, 'BLEAGovBaseCt', {
       tags: {
-        Repository: 'aws-samples/baseline-environment-on-aws',
+        Repository: 'takiguchi-yu/aws-cdk-pipeline',
       },
     });
 
