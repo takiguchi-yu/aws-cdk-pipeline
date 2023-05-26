@@ -1,4 +1,4 @@
-import { CfnOutput, RemovalPolicy } from 'aws-cdk-lib';
+import { BundlingOutput, CfnOutput, DockerImage, RemovalPolicy } from 'aws-cdk-lib';
 import {
   AllowedMethods,
   Distribution,
@@ -9,7 +9,7 @@ import {
 } from 'aws-cdk-lib/aws-cloudfront';
 import { S3Origin } from 'aws-cdk-lib/aws-cloudfront-origins';
 import { BlockPublicAccess, Bucket } from 'aws-cdk-lib/aws-s3';
-import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment';
+import { BucketDeployment, ISource, Source } from 'aws-cdk-lib/aws-s3-deployment';
 import { Construct } from 'constructs';
 
 export class Documentation extends Construct {
@@ -39,17 +39,39 @@ export class Documentation extends Construct {
         viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       },
     });
-    new CfnOutput(this, 'DistributionId', { value: distribution.distributionId });
-    new CfnOutput(this, 'DistributionUrl', {
-      value: `https://${distribution.distributionDomainName}`,
+
+    // OpenAPI redoc
+    const apiDocSource: ISource = Source.asset('../api/spec', {
+      bundling: {
+        image: DockerImage.fromRegistry('node'),
+        // image: DockerImage.fromBuild('../api/spec/docker'),
+        command: [
+          '/bin/sh',
+          '-c',
+          'pwd && ls -l && ' +
+            'node --version && npm --version && ' +
+            'npm install -g @redocly/cli && ' +
+            'redocly build-docs openapi.yaml --output build/index.html --title "あああ" && ' +
+            'cp build/* /asset-output/',
+        ],
+        user: 'root',
+        outputType: BundlingOutput.NOT_ARCHIVED,
+      },
     });
 
     // S3 deploy
-    new s3deploy.BucketDeployment(this, 'DeployWithInvalidation', {
-      sources: [s3deploy.Source.asset('../api/spec/build')],
+    new BucketDeployment(this, 'DeployWithInvalidation', {
+      // sources: [Source.asset('../api/spec/build')],
+      sources: [apiDocSource],
       destinationBucket: apiDocumentBucket,
       distribution,
       distributionPaths: ['/*'],
+    });
+
+    // Cfn Output
+    new CfnOutput(this, 'CloudfrontDistributionId', { value: distribution.distributionId });
+    new CfnOutput(this, 'CloudfrontURL', {
+      value: `https://${distribution.distributionDomainName}`,
     });
   }
 }
