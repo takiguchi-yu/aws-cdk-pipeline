@@ -15,3 +15,5 @@ cdk.out
 # CDK context
 cdk.context.json
 
+# OpenAPI
+api/spec/build
