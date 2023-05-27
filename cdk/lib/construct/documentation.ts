@@ -40,7 +40,7 @@ export class Documentation extends Construct {
       },
     });
 
-    // OpenAPI redoc
+    // OpenAPI Documentation (redoc)
     const apiDocSource: ISource = Source.asset('../api/spec', {
       bundling: {
         image: DockerImage.fromRegistry('node'),

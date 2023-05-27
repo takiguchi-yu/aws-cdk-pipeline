@@ -28,12 +28,12 @@ export class AwsCdkPipelineStack extends cdk.Stack {
         ],
         primaryOutputDirectory: './cdk/cdk.out',
       }),
-      dockerEnabledForSelfMutation: true,
-      dockerEnabledForSynth: true,
+      dockerEnabledForSelfMutation: true, // パイプラインの自己更新を許可
+      dockerEnabledForSynth: true, // バンドルされたファイルアセットを使用する
     });
 
     props.targetParameters.forEach((params) => {
-      pipeline.addStage(new AwsCdkPipelineStage(this, 'Dev', params));
+      pipeline.addStage(new AwsCdkPipelineStage(this, 'Deploy', params));
     });
   }
 }
