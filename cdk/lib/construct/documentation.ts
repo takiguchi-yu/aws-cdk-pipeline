@@ -51,7 +51,7 @@ export class Documentation extends Construct {
           'pwd && ls -l && ' +
             'node --version && npm --version && ' +
             'npm install -g @redocly/cli && ' +
-            'redocly build-docs openapi.yaml --output build/index.html --title "あああ" && ' +
+            'redocly build-docs openapi.yaml --output build/index.html --title "ほげ" && ' +
             'cp build/* /asset-output/',
         ],
         user: 'root',
