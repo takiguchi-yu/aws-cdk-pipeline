@@ -1,5 +1,6 @@
 import { Stack, StackProps, Stage } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
+import { Api } from '../construct/api';
 import { Documentation } from '../construct/documentation';
 
 export interface AwsCdkPipelineStageProps extends StackProps {
@@ -33,6 +34,8 @@ export class AwsCdkPipelineStage extends Stage {
     //   notifyEmail: props.securityNotifyEmail,
     //   cloudTrailLogGroupName: logging.trailLogGroup.logGroupName,
     // });
+
+    new Api(stack, 'Api');
 
     // OpenAPI Documentation
     new Documentation(stack, 'Documentation');

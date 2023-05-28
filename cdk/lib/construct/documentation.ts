@@ -41,7 +41,7 @@ export class Documentation extends Construct {
     });
 
     // OpenAPI Documentation (redoc)
-    const apiDocSource: ISource = Source.asset('../api/spec', {
+    const apiDocumentSource: ISource = Source.asset('../api/spec', {
       bundling: {
         image: DockerImage.fromRegistry('node'),
         // image: DockerImage.fromBuild('../api/spec/docker'),
@@ -62,7 +62,7 @@ export class Documentation extends Construct {
     // S3 deploy
     new BucketDeployment(this, 'DeployWithInvalidation', {
       // sources: [Source.asset('../api/spec/build')],
-      sources: [apiDocSource],
+      sources: [apiDocumentSource],
       destinationBucket: apiDocumentBucket,
       distribution,
       distributionPaths: ['/*'],
@@ -70,8 +70,7 @@ export class Documentation extends Construct {
 
     // Cfn Output
     new CfnOutput(this, 'CloudfrontDistributionId', { value: distribution.distributionId });
-    new CfnOutput(this, 'CloudfrontURL', {
-      value: `https://${distribution.distributionDomainName}`,
-    });
+    new CfnOutput(this, 'CloudfrontURL', { value: `https://${distribution.distributionDomainName}` });
+    new CfnOutput(this, 'BucketNameOutput', { value: apiDocumentBucket.bucketName });
   }
 }
