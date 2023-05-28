@@ -1,6 +1,6 @@
 import { CfnOutput, Duration } from 'aws-cdk-lib';
 import { ApiDefinition, MethodLoggingLevel, SpecRestApi } from 'aws-cdk-lib/aws-apigateway';
-import { Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda';
+import { CfnFunction, Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
 
@@ -9,7 +9,7 @@ export class Api extends Construct {
     super(scope, id);
 
     // Lambda
-    new Function(this, 'Function', {
+    const apiLambda = new Function(this, 'Function', {
       runtime: Runtime.NODEJS_18_X,
       handler: 'index.handler',
       code: Code.fromAsset('../api/lambda'),
@@ -17,6 +17,10 @@ export class Api extends Construct {
       timeout: Duration.seconds(3),
       logRetention: RetentionDays.ONE_DAY,
     });
+    // Lambda関数のリソースを取得
+    const apiCfnFunction = apiLambda.node.defaultChild as CfnFunction;
+    // 論理IDを上書き
+    apiCfnFunction.overrideLogicalId('APILambda');
 
     // API Gateway
     const restAPI = new SpecRestApi(this, 'PetStoreAPI', {
