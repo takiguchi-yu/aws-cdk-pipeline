@@ -64,7 +64,7 @@ widdershins --search false --language_tabs 'javascript:JavaScript' 'python:Pytho
 
 ```bash
 npm install -g @redocly/cli
-redocly build-docs api/spec/openapi.yaml --output api/spec/build/index.html --title "Page Title"
+redocly build-docs api/spec/openapi.yaml --output api/spec/build/index.html"
 ```
 
 ## 参考資料

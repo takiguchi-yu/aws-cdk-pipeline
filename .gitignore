@@ -17,3 +17,4 @@ cdk.context.json
 
 # OpenAPI
 api/spec/build
+!api/lambda/*.js
