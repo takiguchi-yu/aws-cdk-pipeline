@@ -1,5 +1,4 @@
-import { CfnOutput, Duration } from 'aws-cdk-lib';
-import { ApiDefinition, MethodLoggingLevel, SpecRestApi } from 'aws-cdk-lib/aws-apigateway';
+import { Duration } from 'aws-cdk-lib';
 import { CfnFunction, Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
@@ -25,22 +24,22 @@ export class Api extends Construct {
     apiCfnFunction.overrideLogicalId('MySuperLambda');
 
     // API Gateway
-    const restAPI = new SpecRestApi(this, 'PetStoreAPI', {
-      apiDefinition: ApiDefinition.fromAsset('../api/spec/openapi.yaml'),
-      restApiName: 'PetStoreAPI',
-      deployOptions: {
-        stageName: '',
-        loggingLevel: MethodLoggingLevel.ERROR,
-        dataTraceEnabled: false,
-        metricsEnabled: true,
-        tracingEnabled: false,
-      },
-    });
+    // const restAPI = new SpecRestApi(this, 'PetStoreAPI', {
+    //   apiDefinition: ApiDefinition.fromAsset('../api/spec/openapi.yaml'),
+    //   restApiName: 'PetStoreAPI',
+    //   deployOptions: {
+    //     stageName: '',
+    //     loggingLevel: MethodLoggingLevel.ERROR,
+    //     dataTraceEnabled: false,
+    //     metricsEnabled: true,
+    //     tracingEnabled: false,
+    //   },
+    // });
 
     // const ApiStage = new CfnParameter(this, 'ApiStage', { type: 'String', default: props.ApiStage });
     // ApiStage.overrideLogicalId('ApiStage');
 
     // Cfn Output
-    new CfnOutput(this, 'RestIdOutput', { value: restAPI.restApiId });
+    // new CfnOutput(this, 'RestIdOutput', { value: restAPI.restApiId });
   }
 }
