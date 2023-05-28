@@ -10,6 +10,8 @@ export class Api extends Construct {
 
     // Lambda
     const apiLambda = new Function(this, 'Function', {
+      functionName: 'MySuperLambda',
+      description: 'Hello World',
       runtime: Runtime.NODEJS_18_X,
       handler: 'index.handler',
       code: Code.fromAsset('../api/lambda'),
@@ -20,8 +22,7 @@ export class Api extends Construct {
     // Lambda関数のリソースを取得
     const apiCfnFunction = apiLambda.node.defaultChild as CfnFunction;
     // 論理IDを上書き
-    apiCfnFunction.overrideLogicalId('APILambda');
-    console.log(apiLambda.functionArn);
+    apiCfnFunction.overrideLogicalId('MySuperLambda');
 
     // API Gateway
     const restAPI = new SpecRestApi(this, 'PetStoreAPI', {
@@ -35,6 +36,9 @@ export class Api extends Construct {
         tracingEnabled: false,
       },
     });
+
+    // const ApiStage = new CfnParameter(this, 'ApiStage', { type: 'String', default: props.ApiStage });
+    // ApiStage.overrideLogicalId('ApiStage');
 
     // Cfn Output
     new CfnOutput(this, 'RestIdOutput', { value: restAPI.restApiId });
