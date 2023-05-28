@@ -21,6 +21,7 @@ export class Api extends Construct {
     const apiCfnFunction = apiLambda.node.defaultChild as CfnFunction;
     // 論理IDを上書き
     apiCfnFunction.overrideLogicalId('APILambda');
+    console.log(apiLambda.functionArn);
 
     // API Gateway
     const restAPI = new SpecRestApi(this, 'PetStoreAPI', {
