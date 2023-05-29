@@ -1,6 +1,8 @@
-import { Duration } from 'aws-cdk-lib';
+import { Duration, Fn, IResolvable } from 'aws-cdk-lib';
+import { ApiDefinition, InlineApiDefinition, MethodLoggingLevel, SpecRestApi } from 'aws-cdk-lib/aws-apigateway';
 import { CfnFunction, Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { RetentionDays } from 'aws-cdk-lib/aws-logs';
+import { Asset } from 'aws-cdk-lib/aws-s3-assets';
 import { Construct } from 'constructs';
 
 export class Api extends Construct {
@@ -9,8 +11,6 @@ export class Api extends Construct {
 
     // Lambda
     const apiLambda = new Function(this, 'Function', {
-      // functionName: 'MySuperLambda',
-      // description: 'Hello World',
       runtime: Runtime.NODEJS_18_X,
       handler: 'index.handler',
       code: Code.fromAsset('../api/lambda'),
@@ -18,12 +18,27 @@ export class Api extends Construct {
       timeout: Duration.seconds(3),
       logRetention: RetentionDays.ONE_DAY,
     });
-    // Lambda関数のリソースを取得
-    const apiCfnFunction = apiLambda.node.defaultChild as CfnFunction;
-    // 論理IDを上書き
-    apiCfnFunction.overrideLogicalId('MySuperLambda2');
+    const cfnLambda = apiLambda.node.defaultChild as CfnFunction;
+    cfnLambda.overrideLogicalId('ApiLambda'); // OpenAPI定義で参照
 
     // API Gateway
+    const openApiAsset = new Asset(this, 'openApiFile', {
+      path: '../api/spec/openapi.yaml',
+    });
+    const transformMap = {
+      Location: openApiAsset.s3ObjectUrl,
+    };
+    const data: IResolvable = Fn.transform('AWS::Include', transformMap);
+    const apiDefinition: InlineApiDefinition = ApiDefinition.fromInline(data);
+    const specRestApi = new SpecRestApi(this, 'RestApi', {
+      apiDefinition: apiDefinition,
+      restApiName: 'tasks-api',
+      deployOptions: {
+        stageName: '',
+        loggingLevel: MethodLoggingLevel.INFO,
+      },
+    });
+
     // const restAPI = new SpecRestApi(this, 'PetStoreAPI', {
     //   apiDefinition: ApiDefinition.fromAsset('../api/spec/openapi.yaml'),
     //   restApiName: 'PetStoreAPI',

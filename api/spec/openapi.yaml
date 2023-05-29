@@ -21,7 +21,7 @@ paths:
           content: {}
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${MySuperLambda.Arn}/invocations'
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ApiLambda.Arn}/invocations'
         responses:
           default:
             statusCode: '200'
