@@ -1,4 +1,4 @@
-import { Duration, Fn, IResolvable } from 'aws-cdk-lib';
+import { CfnOutput, Duration, Fn, IResolvable } from 'aws-cdk-lib';
 import { ApiDefinition, InlineApiDefinition, MethodLoggingLevel, SpecRestApi } from 'aws-cdk-lib/aws-apigateway';
 import { CfnFunction, Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { RetentionDays } from 'aws-cdk-lib/aws-logs';
@@ -31,7 +31,7 @@ export class Api extends Construct {
     const data: IResolvable = Fn.transform('AWS::Include', transformMap);
     const apiDefinition: InlineApiDefinition = ApiDefinition.fromInline(data);
     const specRestApi = new SpecRestApi(this, 'RestApi', {
-      apiDefinition: apiDefinition,
+      apiDefinition: apiDefinition, // Cfn組み込み関数をロードするためにインラインデータで指定
       restApiName: 'tasks-api',
       deployOptions: {
         stageName: '',
@@ -39,22 +39,7 @@ export class Api extends Construct {
       },
     });
 
-    // const restAPI = new SpecRestApi(this, 'PetStoreAPI', {
-    //   apiDefinition: ApiDefinition.fromAsset('../api/spec/openapi.yaml'),
-    //   restApiName: 'PetStoreAPI',
-    //   deployOptions: {
-    //     stageName: '',
-    //     loggingLevel: MethodLoggingLevel.ERROR,
-    //     dataTraceEnabled: false,
-    //     metricsEnabled: true,
-    //     tracingEnabled: false,
-    //   },
-    // });
-
-    // const ApiStage = new CfnParameter(this, 'ApiStage', { type: 'String', default: props.ApiStage });
-    // ApiStage.overrideLogicalId('ApiStage');
-
     // Cfn Output
-    // new CfnOutput(this, 'RestIdOutput', { value: restAPI.restApiId });
+    new CfnOutput(this, 'RestIdOutput', { value: specRestApi.restApiId });
   }
 }
