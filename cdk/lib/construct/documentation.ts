@@ -17,7 +17,7 @@ export class Documentation extends Construct {
     super(scope, id);
 
     // S3
-    const apiDocumentBucket = new Bucket(this, 'ApiDocumentBucket', {
+    const apiDocBucket = new Bucket(this, 'ApiDocumentBucket', {
       bucketName: 'takiguchi-no-api-document-bucket',
       publicReadAccess: false,
       blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
@@ -27,13 +27,13 @@ export class Documentation extends Construct {
 
     // Cloudfront
     const cloudfrontOAI = new OriginAccessIdentity(this, 'CloudfrontOAI');
-    apiDocumentBucket.grantRead(cloudfrontOAI);
+    apiDocBucket.grantRead(cloudfrontOAI);
     const distribution = new Distribution(this, 'Distribution', {
       defaultRootObject: 'index.html',
       priceClass: PriceClass.PRICE_CLASS_200,
       minimumProtocolVersion: SecurityPolicyProtocol.TLS_V1_2_2021,
       defaultBehavior: {
-        origin: new S3Origin(apiDocumentBucket, { originAccessIdentity: cloudfrontOAI }),
+        origin: new S3Origin(apiDocBucket, { originAccessIdentity: cloudfrontOAI }),
         compress: true,
         allowedMethods: AllowedMethods.ALLOW_GET_HEAD,
         viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
@@ -41,7 +41,7 @@ export class Documentation extends Construct {
     });
 
     // OpenAPI Documentation (redoc)
-    const apiDocumentSource: ISource = Source.asset('../api/spec', {
+    const apiDocSource: ISource = Source.asset('../api/spec', {
       bundling: {
         image: DockerImage.fromRegistry('node'),
         // image: DockerImage.fromBuild('../api/spec/docker'),
@@ -62,8 +62,8 @@ export class Documentation extends Construct {
     // S3 deploy
     new BucketDeployment(this, 'DeployWithInvalidation', {
       // sources: [Source.asset('../api/spec/build')],
-      sources: [apiDocumentSource],
-      destinationBucket: apiDocumentBucket,
+      sources: [apiDocSource],
+      destinationBucket: apiDocBucket,
       distribution,
       distributionPaths: ['/*'],
     });
@@ -71,6 +71,6 @@ export class Documentation extends Construct {
     // Cfn Output
     new CfnOutput(this, 'CloudfrontDistributionId', { value: distribution.distributionId });
     new CfnOutput(this, 'CloudfrontURL', { value: `https://${distribution.distributionDomainName}` });
-    new CfnOutput(this, 'BucketNameOutput', { value: apiDocumentBucket.bucketName });
+    new CfnOutput(this, 'BucketName', { value: apiDocBucket.bucketName });
   }
 }
