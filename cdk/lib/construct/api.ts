@@ -40,6 +40,6 @@ export class Api extends Construct {
     });
 
     // Cfn Output
-    new CfnOutput(this, 'RestIdOutput', { value: specRestApi.restApiId });
+    new CfnOutput(this, 'RestApiId', { value: specRestApi.restApiId });
   }
 }
