@@ -18,7 +18,6 @@ export class Documentation extends Construct {
 
     // S3
     const apiDocBucket = new Bucket(this, 'ApiDocumentBucket', {
-      bucketName: 'takiguchi-no-api-document-bucket',
       publicReadAccess: false,
       blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
       removalPolicy: RemovalPolicy.DESTROY,
