@@ -70,6 +70,6 @@ export class Documentation extends Construct {
     // Cfn Output
     new CfnOutput(this, 'CloudfrontDistributionId', { value: distribution.distributionId });
     new CfnOutput(this, 'CloudfrontURL', { value: `https://${distribution.distributionDomainName}` });
-    new CfnOutput(this, 'BucketName', { value: apiDocBucket.bucketName });
+    new CfnOutput(this, 'ApiDocumentBucketName', { value: apiDocBucket.bucketName });
   }
 }
