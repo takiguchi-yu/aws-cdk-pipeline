@@ -11,13 +11,15 @@
     "synth": "cdk synth -q && npm run synth:pipelines && npm run synth:sc",
     "synth:pipelines": "cdk synth -q --app \"npx ts-node --prefer-ts-exts bin/aws-cdk-pipeline.ts\"",
     "synth:sc": "cdk synth -q --app \"npx ts-node --prefer-ts-exts bin/aws-cdk-pipeline.ts\"",
+    "deploy": "cdk deploy --require-approval never --profile",
     "depcheck": "depcheck",
     "build": "tsc --build",
     "clean": "tsc --build --clean && rm -f parameter.js parameter.d.ts && rm -rf cdk.out",
     "clean:product": "rm -rf product-stack-snapshots/",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "list": "cdk ls"
   },
   "devDependencies": {
     "@types/jest": "^29.5.1",

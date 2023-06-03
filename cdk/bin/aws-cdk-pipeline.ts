@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
+import 'source-map-support/register';
 import { AwsCdkPipelineStack } from '../lib/stack/aws-cdk-pipeline-stack';
 import { devParameter, devPipelineParameter } from '../parameter';
 
@@ -12,8 +12,8 @@ new AwsCdkPipelineStack(app, 'AwsCdkPipelineStack', {
     region: devPipelineParameter.env.region || process.env.CDK_DEFAULT_REGION,
   },
   tags: {
-    Repository: 'takiguchi-yu/aws-cdk-pipeline',
-    Environment: 'development',
+    Repository: devPipelineParameter.sourceRepository,
+    Environment: devParameter.envName,
   },
   targetParameters: [devParameter],
   sourceRepository: devPipelineParameter.sourceRepository,
