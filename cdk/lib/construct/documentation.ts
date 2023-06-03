@@ -1,4 +1,4 @@
-import { BundlingOutput, CfnOutput, DockerImage, RemovalPolicy } from 'aws-cdk-lib';
+import { CfnOutput, RemovalPolicy } from 'aws-cdk-lib';
 import {
   AllowedMethods,
   Distribution,
@@ -9,7 +9,7 @@ import {
 } from 'aws-cdk-lib/aws-cloudfront';
 import { S3Origin } from 'aws-cdk-lib/aws-cloudfront-origins';
 import { BlockPublicAccess, Bucket } from 'aws-cdk-lib/aws-s3';
-import { BucketDeployment, ISource, Source } from 'aws-cdk-lib/aws-s3-deployment';
+import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment';
 import { Construct } from 'constructs';
 
 export class Documentation extends Construct {
@@ -40,28 +40,28 @@ export class Documentation extends Construct {
     });
 
     // OpenAPI Documentation (redoc)
-    const apiDocSource: ISource = Source.asset('../api/spec', {
-      bundling: {
-        image: DockerImage.fromRegistry('node'),
-        // image: DockerImage.fromBuild('../api/spec/docker'),
-        command: [
-          '/bin/sh',
-          '-c',
-          'pwd && ls -l && ' +
-            'node --version && npm --version && ' +
-            'npm install -g @redocly/cli && ' +
-            'redocly build-docs openapi.yaml --output build/index.html && ' +
-            'cp build/* /asset-output/',
-        ],
-        user: 'root',
-        outputType: BundlingOutput.NOT_ARCHIVED,
-      },
-    });
+    // const apiDocSource: ISource = Source.asset('../api/spec', {
+    //   bundling: {
+    //     image: DockerImage.fromRegistry('node'),
+    //     // image: DockerImage.fromBuild('../api/spec/docker'),
+    //     command: [
+    //       '/bin/sh',
+    //       '-c',
+    //       'pwd && ls -l && ' +
+    //         'node --version && npm --version && ' +
+    //         'npm install -g @redocly/cli && ' +
+    //         'redocly build-docs openapi.yaml --output build/index.html && ' +
+    //         'cp build/* /asset-output/',
+    //     ],
+    //     user: 'root',
+    //     outputType: BundlingOutput.NOT_ARCHIVED,
+    //   },
+    // });
 
     // S3 deploy
     new BucketDeployment(this, 'DeployWithInvalidation', {
-      // sources: [Source.asset('../api/spec/build')],
-      sources: [apiDocSource],
+      sources: [Source.asset('../api/spec/build')],
+      // sources: [apiDocSource],
       destinationBucket: apiDocBucket,
       distribution,
       distributionPaths: ['/*'],
