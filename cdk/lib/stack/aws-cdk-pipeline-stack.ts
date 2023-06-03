@@ -33,7 +33,7 @@ export class AwsCdkPipelineStack extends cdk.Stack {
     });
 
     props.targetParameters.forEach((params) => {
-      pipeline.addStage(new AwsCdkPipelineStage(this, 'Dev', params));
+      pipeline.addStage(new AwsCdkPipelineStage(this, params.envName, params));
     });
   }
 }
