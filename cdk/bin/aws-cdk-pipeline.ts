@@ -6,9 +6,6 @@ import { devParameter, devPipelineParameter } from '../parameter';
 
 const app = new cdk.App();
 
-console.log('CDK_DEFAULT_ACCOUNT: ' + process.env.CDK_DEFAULT_ACCOUNT);
-console.log('CDK_DEFAULT_REGION: ' + process.env.CDK_DEFAULT_REGION);
-
 // 開発環境
 if (process.env.CDK_DEFAULT_ACCOUNT == '887277492962') {
   new AwsCdkPipelineStack(app, 'AwsCdkPipelineStack', {
@@ -25,6 +22,4 @@ if (process.env.CDK_DEFAULT_ACCOUNT == '887277492962') {
     sourceBranch: devPipelineParameter.sourceBranch,
     sourceConnectionArn: devPipelineParameter.sourceConnectionArn,
   });
-} else {
-  console.log('環境変数[CDK_DEFAULT_ACCOUNT]が設定されていません');
 }
