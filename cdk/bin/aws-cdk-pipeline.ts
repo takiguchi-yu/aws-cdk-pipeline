@@ -7,11 +7,11 @@ import { devParameter, devPipelineParameter } from '../parameter';
 const app = new cdk.App();
 
 // 開発環境
-if (process.env.CDK_DEFAULT_ACCOUNT == '887277492962') {
+if (devPipelineParameter.env.account == '887277492962') {
   new AwsCdkPipelineStack(app, 'AwsCdkPipelineStack', {
     env: {
-      account: devPipelineParameter.env.account || process.env.CDK_DEFAULT_ACCOUNT,
-      region: devPipelineParameter.env.region || process.env.CDK_DEFAULT_REGION,
+      account: devPipelineParameter.env.account,
+      region: devPipelineParameter.env.region,
     },
     tags: {
       Repository: devPipelineParameter.sourceRepository,
