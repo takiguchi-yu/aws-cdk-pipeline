@@ -71,7 +71,7 @@ exports[`Snapshot test for Pipeline Stack 1`] = `
                   "Version": "1",
                 },
                 "Configuration": {
-                  "EnvironmentVariables": "[{"name":"_PROJECT_CONFIG_HASH","type":"PLAINTEXT","value":"52b9d5bc7437921e9dd744384ab1b5d69765880e9ed732f02712bac6d8b12c7f"}]",
+                  "EnvironmentVariables": "[{"name":"_PROJECT_CONFIG_HASH","type":"PLAINTEXT","value":"ffd2f0198e57a10f6c4ab67cd61e2958e2346e742931cdf822d8e77c3afeadea"}]",
                   "ProjectName": {
                     "Ref": "PipelineBuildSynthCdkBuildProject6BEFA8E6",
                   },
@@ -353,9 +353,9 @@ exports[`Snapshot test for Pipeline Stack 1`] = `
                       ],
                     ],
                   },
-                  "StackName": "Development-AwsCdkOpenApi",
-                  "TemplateConfiguration": "Synth_Output::assembly-AwsCdkPipelineStack-Development/AwsCdkPipelineStackDevelopmentAwsCdkOpenApi13D444C0.template.json.config.json",
-                  "TemplatePath": "Synth_Output::assembly-AwsCdkPipelineStack-Development/AwsCdkPipelineStackDevelopmentAwsCdkOpenApi13D444C0.template.json",
+                  "StackName": "Dev-AwsCdkOpenApi",
+                  "TemplateConfiguration": "Synth_Output::assembly-AwsCdkPipelineStack-Dev/AwsCdkPipelineStackDevAwsCdkOpenApiF515BA54.template.json.config.json",
+                  "TemplatePath": "Synth_Output::assembly-AwsCdkPipelineStack-Dev/AwsCdkPipelineStackDevAwsCdkOpenApiF515BA54.template.json",
                 },
                 "InputArtifacts": [
                   {
@@ -398,7 +398,7 @@ exports[`Snapshot test for Pipeline Stack 1`] = `
                 "Configuration": {
                   "ActionMode": "CHANGE_SET_EXECUTE",
                   "ChangeSetName": "PipelineChange",
-                  "StackName": "Development-AwsCdkOpenApi",
+                  "StackName": "Dev-AwsCdkOpenApi",
                 },
                 "Name": "Deploy",
                 "RoleArn": {
@@ -427,7 +427,7 @@ exports[`Snapshot test for Pipeline Stack 1`] = `
                 "RunOrder": 2,
               },
             ],
-            "Name": "Development",
+            "Name": "Dev",
           },
         ],
       },
@@ -591,7 +591,7 @@ exports[`Snapshot test for Pipeline Stack 1`] = `
     },
     "build": {
       "commands": [
-        "cdk-assets --path \\"assembly-AwsCdkPipelineStack-Development/AwsCdkPipelineStackDevelopmentAwsCdkOpenApi13D444C0.assets.json\\" --verbose publish \\"d150ac495b02cfc43d8f098732c20b03f341f4ee059a084dcf79350303167b0e:current_account-current_region\\""
+        "cdk-assets --path \\"assembly-AwsCdkPipelineStack-Dev/AwsCdkPipelineStackDevAwsCdkOpenApiF515BA54.assets.json\\" --verbose publish \\"d150ac495b02cfc43d8f098732c20b03f341f4ee059a084dcf79350303167b0e:current_account-current_region\\""
       ]
     }
   }
@@ -635,7 +635,7 @@ exports[`Snapshot test for Pipeline Stack 1`] = `
     },
     "build": {
       "commands": [
-        "cdk-assets --path \\"assembly-AwsCdkPipelineStack-Development/AwsCdkPipelineStackDevelopmentAwsCdkOpenApi13D444C0.assets.json\\" --verbose publish \\"5fa1330271b8967d9254ba2d4a07144f8acefe8b77e6d6bba38261373a50d5f8:current_account-current_region\\""
+        "cdk-assets --path \\"assembly-AwsCdkPipelineStack-Dev/AwsCdkPipelineStackDevAwsCdkOpenApiF515BA54.assets.json\\" --verbose publish \\"5fa1330271b8967d9254ba2d4a07144f8acefe8b77e6d6bba38261373a50d5f8:current_account-current_region\\""
       ]
     }
   }
@@ -679,7 +679,7 @@ exports[`Snapshot test for Pipeline Stack 1`] = `
     },
     "build": {
       "commands": [
-        "cdk-assets --path \\"assembly-AwsCdkPipelineStack-Development/AwsCdkPipelineStackDevelopmentAwsCdkOpenApi13D444C0.assets.json\\" --verbose publish \\"8dd7d3b1e935c8803fc2d965a10e07698b0098028927aabbbc3c3e270283ae5f:current_account-current_region\\""
+        "cdk-assets --path \\"assembly-AwsCdkPipelineStack-Dev/AwsCdkPipelineStackDevAwsCdkOpenApiF515BA54.assets.json\\" --verbose publish \\"8dd7d3b1e935c8803fc2d965a10e07698b0098028927aabbbc3c3e270283ae5f:current_account-current_region\\""
       ]
     }
   }
@@ -723,7 +723,7 @@ exports[`Snapshot test for Pipeline Stack 1`] = `
     },
     "build": {
       "commands": [
-        "cdk-assets --path \\"assembly-AwsCdkPipelineStack-Development/AwsCdkPipelineStackDevelopmentAwsCdkOpenApi13D444C0.assets.json\\" --verbose publish \\"350185a1069fa20a23a583e20c77f6844218bd73097902362dc94f1a108f5d89:current_account-current_region\\""
+        "cdk-assets --path \\"assembly-AwsCdkPipelineStack-Dev/AwsCdkPipelineStackDevAwsCdkOpenApiF515BA54.assets.json\\" --verbose publish \\"350185a1069fa20a23a583e20c77f6844218bd73097902362dc94f1a108f5d89:current_account-current_region\\""
       ]
     }
   }
@@ -767,7 +767,7 @@ exports[`Snapshot test for Pipeline Stack 1`] = `
     },
     "build": {
       "commands": [
-        "cdk-assets --path \\"assembly-AwsCdkPipelineStack-Development/AwsCdkPipelineStackDevelopmentAwsCdkOpenApi13D444C0.assets.json\\" --verbose publish \\"44a0e383be3d862079d4e38f75b61b56e911d6b940ae08bf1553c13c3b692a87:current_account-current_region\\""
+        "cdk-assets --path \\"assembly-AwsCdkPipelineStack-Dev/AwsCdkPipelineStackDevAwsCdkOpenApiF515BA54.assets.json\\" --verbose publish \\"44a0e383be3d862079d4e38f75b61b56e911d6b940ae08bf1553c13c3b692a87:current_account-current_region\\""
       ]
     }
   }
@@ -811,7 +811,7 @@ exports[`Snapshot test for Pipeline Stack 1`] = `
     },
     "build": {
       "commands": [
-        "cdk-assets --path \\"assembly-AwsCdkPipelineStack-Development/AwsCdkPipelineStackDevelopmentAwsCdkOpenApi13D444C0.assets.json\\" --verbose publish \\"9eb41a5505d37607ac419321497a4f8c21cf0ee1f9b4a6b29aa04301aea5c7fd:current_account-current_region\\""
+        "cdk-assets --path \\"assembly-AwsCdkPipelineStack-Dev/AwsCdkPipelineStackDevAwsCdkOpenApiF515BA54.assets.json\\" --verbose publish \\"9eb41a5505d37607ac419321497a4f8c21cf0ee1f9b4a6b29aa04301aea5c7fd:current_account-current_region\\""
       ]
     }
   }
@@ -855,7 +855,7 @@ exports[`Snapshot test for Pipeline Stack 1`] = `
     },
     "build": {
       "commands": [
-        "cdk-assets --path \\"assembly-AwsCdkPipelineStack-Development/AwsCdkPipelineStackDevelopmentAwsCdkOpenApi13D444C0.assets.json\\" --verbose publish \\"68ab80b6f92e6185ec2030e768eb1a7fd974e99be39f8c2abcf84ad060e93671:current_account-current_region\\""
+        "cdk-assets --path \\"assembly-AwsCdkPipelineStack-Dev/AwsCdkPipelineStackDevAwsCdkOpenApiF515BA54.assets.json\\" --verbose publish \\"68ab80b6f92e6185ec2030e768eb1a7fd974e99be39f8c2abcf84ad060e93671:current_account-current_region\\""
       ]
     }
   }
@@ -1063,7 +1063,7 @@ exports[`Snapshot test for Pipeline Stack 1`] = `
       "commands": [
         "npm ci --workspaces",
         "cd cdk",
-        "npx cdk synth --app \\"npx ts-node --prefer-ts-exts bin/aws-cdk-pipeline.ts\\""
+        "npx cdk synth"
       ]
     }
   },
