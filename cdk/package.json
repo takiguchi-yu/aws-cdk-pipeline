@@ -8,8 +8,7 @@
     "aws-cdk-pipeline": "bin/aws-cdk-pipeline.js"
   },
   "scripts": {
-    "synth": "cdk synth -q && npm run synth:pipelines",
-    "synth:pipelines": "cdk synth -q --app \"npx ts-node --prefer-ts-exts bin/aws-cdk-pipeline.ts\"",
+    "synth": "cdk synth -q",
     "deploy": "cdk deploy --require-approval never --profile",
     "depcheck": "depcheck",
     "build": "tsc --build",
