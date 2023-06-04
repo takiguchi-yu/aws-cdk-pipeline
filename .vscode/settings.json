@@ -5,8 +5,5 @@
   "editor.codeActionsOnSave": ["source.addMissingImports", "source.fixAll.eslint", "source.organizeImports"],
   "editor.quickSuggestions": {
     "strings": "on"
-  },
-  "yaml.schemas": {
-    "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json": "file:///Users/takiguchi-yu/Desktop/aws-cdk-pipeline/api/spec/openapi.yaml"
   }
 }
