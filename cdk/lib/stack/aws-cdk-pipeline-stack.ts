@@ -1,14 +1,11 @@
 import * as cdk from 'aws-cdk-lib';
 import { pipelines } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { AppParameter } from '../../parameter';
+import { PipelineParameter } from 'parameter';
 import { AwsCdkPipelineStage } from '../stage/aws-cdk-pipeline-stage';
 
 export interface AwsCdkPipelineStackProps extends cdk.StackProps {
-  targetParameters: AppParameter[];
-  sourceRepository: string;
-  sourceBranch: string;
-  sourceConnectionArn: string;
+  appParameter: PipelineParameter;
 }
 
 export class AwsCdkPipelineStack extends cdk.Stack {
@@ -17,23 +14,21 @@ export class AwsCdkPipelineStack extends cdk.Stack {
 
     const pipeline = new pipelines.CodePipeline(this, 'Pipeline', {
       synth: new pipelines.ShellStep('Synth', {
-        input: pipelines.CodePipelineSource.connection(props.sourceRepository, props.sourceBranch, {
-          connectionArn: props.sourceConnectionArn,
-        }),
+        input: pipelines.CodePipelineSource.connection(
+          props.appParameter.sourceRepository,
+          props.appParameter.sourceBranch,
+          {
+            connectionArn: props.appParameter.sourceConnectionArn,
+          },
+        ),
         installCommands: ['n stable', 'node --version', 'npm i -g npm', 'npm --version'],
-        commands: [
-          'npm ci --workspaces',
-          'cd cdk',
-          'npx cdk synth --app "npx ts-node --prefer-ts-exts bin/aws-cdk-pipeline.ts"',
-        ],
+        commands: ['npm ci --workspaces', 'cd cdk', 'npx cdk synth'],
         primaryOutputDirectory: './cdk/cdk.out',
       }),
-      dockerEnabledForSelfMutation: true, // パイプラインの自己更新を許可
-      dockerEnabledForSynth: true, // バンドルされたファイルアセットを使用する
+      dockerEnabledForSelfMutation: true,
+      dockerEnabledForSynth: true,
     });
 
-    props.targetParameters.forEach((params) => {
-      pipeline.addStage(new AwsCdkPipelineStage(this, params.envName, params));
-    });
+    pipeline.addStage(new AwsCdkPipelineStage(this, 'Dev', props));
   }
 }

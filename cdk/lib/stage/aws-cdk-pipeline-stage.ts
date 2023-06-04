@@ -1,16 +1,11 @@
-import { Stack, StackProps, Stage } from 'aws-cdk-lib';
+import { Stack, Stage } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
+import { AwsCdkPipelineStackProps } from 'lib/stack/aws-cdk-pipeline-stack';
 import { Api } from '../construct/api';
 import { Documentation } from '../construct/documentation';
 
-export interface AwsCdkPipelineStageProps extends StackProps {
-  securityNotifyEmail: string;
-  securitySlackWorkspaceId?: string;
-  securitySlackChannelId?: string;
-}
-
 export class AwsCdkPipelineStage extends Stage {
-  constructor(scope: Construct, id: string, props: AwsCdkPipelineStageProps) {
+  constructor(scope: Construct, id: string, props: AwsCdkPipelineStackProps) {
     super(scope, id, props);
 
     // Define a stack and associate same constructs as normal to this.
