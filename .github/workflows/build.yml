@@ -40,10 +40,12 @@ jobs:
       - run: npm run format:ci
       - run: npm run build --workspaces
       - run: npm run test --workspaces
-      # Delete product-stack-snapshots which is created by test.
-      # Without this step, synth fails.
-      - name: aws cdk synth for development env
-        if: ${{ github.ref == 'refs/heads/main' }}
+      - run: echo ${{ github.ref }}
+      - if: ${{ github.ref == 'refs/heads/main' }}
+        env:
+          CDK_DEPLOY_ACCOUNT: 887277492962
+        run: npm run synth --workspaces
+      - if: ${{ github.ref == 'refs/heads/staging' }}
         env:
           CDK_DEPLOY_ACCOUNT: 887277492962
         run: npm run synth --workspaces

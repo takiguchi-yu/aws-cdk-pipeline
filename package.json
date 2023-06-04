@@ -9,8 +9,8 @@
   },
   "license": "MIT-0",
   "engines": {
-    "node": ">=14",
-    "npm": ">=8.1.0"
+    "node": ">=18",
+    "npm": ">=9.5.0"
   },
   "workspaces": [
     "./cdk/"
