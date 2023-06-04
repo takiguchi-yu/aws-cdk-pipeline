@@ -7,8 +7,8 @@ test('Snapshot test for Pipeline Stack', () => {
   const app = new cdk.App();
   const stack = new AwsCdkPipelineStack(app, 'AwsCdkPipelineStack', {
     env: {
-      account: devPipelineParameter.env.account || process.env.CDK_DEFAULT_ACCOUNT,
-      region: devPipelineParameter.env.region || process.env.CDK_DEFAULT_REGION,
+      account: devPipelineParameter.env.account,
+      region: devPipelineParameter.env.region,
     },
     tags: {
       Repository: devPipelineParameter.sourceRepository,
