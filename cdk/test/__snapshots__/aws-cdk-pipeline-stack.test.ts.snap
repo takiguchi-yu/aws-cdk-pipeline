@@ -855,7 +855,7 @@ exports[`Snapshot test for Pipeline Stack 1`] = `
     },
     "build": {
       "commands": [
-        "cdk-assets --path \\"assembly-AwsCdkPipelineStack-Dev/AwsCdkPipelineStackDevAwsCdkOpenApiF515BA54.assets.json\\" --verbose publish \\"68ab80b6f92e6185ec2030e768eb1a7fd974e99be39f8c2abcf84ad060e93671:current_account-current_region\\""
+        "cdk-assets --path \\"assembly-AwsCdkPipelineStack-Dev/AwsCdkPipelineStackDevAwsCdkOpenApiF515BA54.assets.json\\" --verbose publish \\"33fa5edc1ed9873e556cdf438ecfc7087ad8c83896863140cb1cf3a16d60f33c:current_account-current_region\\""
       ]
     }
   }

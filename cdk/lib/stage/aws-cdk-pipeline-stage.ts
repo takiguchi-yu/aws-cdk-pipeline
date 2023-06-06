@@ -11,7 +11,7 @@ export class AwsCdkPipelineStage extends Stage {
     // Define a stack and associate same constructs as normal to this.
     const stack = new Stack(this, 'AwsCdkOpenApi', {
       tags: {
-        Repository: 'takiguchi-yu/aws-cdk-pipeline',
+        Repository: props.appParameter.sourceRepository,
       },
     });
 
